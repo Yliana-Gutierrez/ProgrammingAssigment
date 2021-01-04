@@ -17,49 +17,6 @@ Asignación de programación, se beneficiará de las reglas de alcance de
 el lenguaje R y cómo se pueden manipular para preservar el estado dentro
 de un objeto R.
 
-###  Ejemplo: almacenamiento en caché de la media de un vector
-
-En este ejemplo introducimos el operador `<< -` que se puede usar para
-asignar un valor a un objeto en un entorno que es diferente del
-entorno actual. A continuación se muestran dos funciones que se utilizan para crear un
-objeto especial que almacena un vector numérico y almacena en caché su media.
-La primera función, `makeVector` crea un" vector "especial, que es
-realmente una lista que contiene una función para
-1.   establece el valor del vector
-2.   obtener el valor del vector
-3.   establecer el valor de la media
-4.   obtener el valor de la media
-<! -  ->
-    makeVector <- función (x = numeric ()) {
-            m <- NULO
-            set <- función (y) {
-                    x << - y
-                    m << - NULO
-            }
-            obtener <- función () x
-            setmean <- función (media) m << - media
-            getmean <- función () m
-            lista (establecer = establecer, obtener = obtener,
-                 setmean = setmean,
-                 getmean = getmean)
-    }
-La siguiente función calcula la media del "vector" especial
-creado con la función anterior. Sin embargo, primero verifica si el
-la media ya se ha calculado. Si es así, `GET` es la media de la
-caché y omite el cálculo. De lo contrario, calcula la media de
-los datos y establece el valor de la media en la caché a través de `setmean`
-función.
-    cachemean <- función (x, ...) {
-            m <- x $ getmean ()
-            if (! is.null (m)) {
-                    mensaje ("obteniendo datos en caché")
-                    volver (m)
-            }
-            datos <- x $ get ()
-            m <- media (datos, ...)
-            x $ setmean (m)
-            metro
-    }
 ###  Asignación: Almacenamiento en caché de la inversa de una matriz
 La inversión de matrices suele ser un cálculo costoso y puede haber algunos
 Beneficio de almacenar en caché la inversa de una matriz en lugar de calcularla
